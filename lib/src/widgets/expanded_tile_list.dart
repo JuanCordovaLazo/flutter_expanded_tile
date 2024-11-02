@@ -20,7 +20,8 @@ import 'expanded_tile.dart';
 //SECTION - Exports
 //!SECTION - Exports
 //
-typedef ExpandedTileBuilder = ExpandedTile Function(BuildContext context, int index, ExpandedTileController controller);
+typedef ExpandedTileBuilder = ExpandedTile Function(
+    BuildContext context, int index, ExpandedTileController controller);
 
 /// An extension of the listview returning a list of [ExpandedTile] widgets which are
 /// Expansion tile similar to the list tile supports leading widget,
@@ -107,7 +108,8 @@ class ExpandedTileList extends StatefulWidget {
     this.restorationId,
   })  : assert(itemCount != 0, 'Item Count cannot be 0!'),
         assert(maxOpened != 0, 'Max Opened cannot be 0!'),
-        assert(initiallyOpenedControllersIndexes.length <= maxOpened, "Initially opened controllers can't exceed max number of opened tiles!"),
+        assert(initiallyOpenedControllersIndexes.length <= maxOpened,
+            "Initially opened controllers can't exceed max number of opened tiles!"),
         _constructor = TileListConstructor.separated;
 
   @override
@@ -133,23 +135,6 @@ class _ExpandedTileListState extends State<ExpandedTileList> {
   @override
   void initState() {
     super.initState();
-    //
-    //SECTION - State Variables initializations & Listeners
-    //s1 --State
-    //s1 --State
-    //
-    //s1 --Controllers & Listeners
-    scrollController = widget.scrollController ?? ScrollController();
-    tileControllers = List.generate(
-      widget.itemCount,
-      (index) => ExpandedTileController(key: Key(index.toString()), isExpanded: widget.initiallyOpenedControllersIndexes.contains(index)),
-    );
-    openTileControllers = widget.initiallyOpenedControllersIndexes.map((ind) => tileControllers[ind]).toList();
-    //s1 --Controllers & Listeners
-    //
-    //s1 --Late & Async Initializers
-    //s1 --Late & Async Initializers
-    //!SECTION
   }
 
   //SECTION - Dumb Widgets
@@ -171,12 +156,12 @@ class _ExpandedTileListState extends State<ExpandedTileList> {
       } else {
         openTileControllers.remove(tileControllers[index]);
       }
-      if (widget.itemBuilder(context, index, tileControllers[index]).onTap != null) {
+      if (widget.itemBuilder(context, index, tileControllers[index]).onTap !=
+          null) {
         widget.itemBuilder(context, index, tileControllers[index]).onTap!();
       }
     }
   }
-
   //!SECTION
 
   @override
@@ -187,6 +172,28 @@ class _ExpandedTileListState extends State<ExpandedTileList> {
     //
     //s1 --Contexted Widgets
     //s1 --Contexted Widgets
+    //!SECTION
+
+    //
+    //SECTION - State Variables initializations & Listeners
+    //s1 --State
+    //s1 --State
+    //
+    //s1 --Controllers & Listeners
+    scrollController = widget.scrollController ?? ScrollController();
+    tileControllers = List.generate(
+      widget.itemCount,
+      (index) => ExpandedTileController(
+          key: Key(index.toString()),
+          isExpanded: widget.initiallyOpenedControllersIndexes.contains(index)),
+    );
+    openTileControllers = widget.initiallyOpenedControllersIndexes
+        .map((ind) => tileControllers[ind])
+        .toList();
+    //s1 --Controllers & Listeners
+    //
+    //s1 --Late & Async Initializers
+    //s1 --Late & Async Initializers
     //!SECTION
 
     //SECTION - Build Return
